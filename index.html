@@ -4,408 +4,114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>J.I Studios</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --white: #FAFAF8;
-  --off: #F2F1EE;
-  --light: #E8E6E1;
-  --mid: #C4C2BC;
-  --muted: #9B9890;
   --ink: #1C1C1A;
-  --black: #0E0E0C;
-  --red: #D94F3D;
+  --mid: #9B9890;
+  --light: #E8E6E1;
   --serif: 'DM Serif Display', Georgia, serif;
-  --sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --sans: 'DM Sans', sans-serif;
 }
 
-html { scroll-behavior: smooth; }
-
-body {
+html, body {
   background: var(--white);
   color: var(--ink);
   font-family: var(--sans);
   font-weight: 300;
-  cursor: none;
-  overflow-x: hidden;
+  height: 100%;
 }
 
-/* Custom cursor */
-.cursor {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: var(--ink);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), width 0.3s, height 0.3s;
-  mix-blend-mode: difference;
-}
-
-/* Header */
+/* ── HEADER ── */
 header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 500;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
-  height: 56px;
+  align-items: center;
+  padding: 0 40px;
+  height: 52px;
   background: var(--white);
   border-bottom: 1px solid var(--light);
 }
 
 .logo {
   font-family: var(--serif);
-  font-size: 19px;
+  font-style: italic;
+  font-size: 18px;
   letter-spacing: -0.01em;
   color: var(--ink);
-  font-style: italic;
 }
-
-.logo span {
-  font-style: normal;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  vertical-align: super;
-  margin-left: 4px;
-  font-family: var(--sans);
-}
-
-nav {
-  display: flex;
-  gap: 36px;
-  align-items: center;
-}
-
-nav a {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 400;
-  transition: color 0.15s;
-}
-
-nav a:hover { color: var(--muted); }
 
 .header-right {
   display: flex;
+  gap: 32px;
   align-items: center;
-  gap: 28px;
 }
 
-.header-right a {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink);
+.header-right a, nav a {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--mid);
   text-decoration: none;
-  font-weight: 400;
   transition: color 0.15s;
+  font-weight: 400;
 }
 
-.header-right a:hover { color: var(--muted); }
+.header-right a:hover, nav a:hover { color: var(--ink); }
 
-/* Page intro line */
-.ticker {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  z-index: 400;
-  background: var(--ink);
-  height: 32px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+nav { display: flex; gap: 32px; }
+
+/* ── LAYOUT ── */
+main {
+  padding-top: 52px;
+  min-height: 100vh;
 }
 
-.ticker-track {
+/* ── COLLECTIONS NAV ── */
+.collections-bar {
+  border-bottom: 1px solid var(--light);
   display: flex;
   gap: 0;
-  animation: ticker 30s linear infinite;
-  white-space: nowrap;
-}
-
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.ticker-item {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--white);
   padding: 0 40px;
-  opacity: 0.7;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.ticker-dot {
-  color: var(--red);
-  opacity: 1;
-}
+.collections-bar::-webkit-scrollbar { display: none; }
 
-/* Main content offset */
-main { padding-top: 88px; }
-
-/* ── HERO ── */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: calc(100vh - 88px);
-  min-height: 600px;
-}
-
-.hero-left {
-  background: var(--off);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 56px 64px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Large background text */
-.hero-bg-text {
-  position: absolute;
-  top: 50%;
-  left: -20px;
-  transform: translateY(-50%);
-  font-family: var(--serif);
-  font-size: clamp(140px, 18vw, 220px);
-  font-style: italic;
-  color: rgba(26,26,26,0.05);
-  line-height: 1;
-  pointer-events: none;
-  white-space: nowrap;
-  letter-spacing: -0.04em;
-}
-
-.hero-season {
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.hero-title {
-  font-family: var(--serif);
-  font-size: clamp(52px, 6vw, 82px);
-  font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 32px;
-}
-
-.hero-title em {
-  display: block;
-  font-style: italic;
-  color: var(--muted);
-}
-
-.hero-cta-row {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.btn-primary {
+.col-tab {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
-  color: var(--white);
-  background: var(--ink);
-  padding: 14px 28px;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s;
-  font-family: var(--sans);
-}
-
-.btn-primary:hover { background: var(--black); }
-
-.btn-ghost {
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 400;
-  color: var(--muted);
-  text-decoration: none;
-  font-family: var(--sans);
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-ghost::after {
-  content: '→';
-  transition: transform 0.2s;
-}
-
-.btn-ghost:hover { color: var(--ink); }
-.btn-ghost:hover::after { transform: translateX(4px); }
-
-.hero-right {
-  display: grid;
-  grid-template-rows: 3fr 1fr;
-}
-
-.hero-image-main {
-  background: var(--light);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Geometric figure */
-.hero-figure {
-  width: 180px;
-  height: 320px;
-  background: var(--mid);
-  position: relative;
-}
-
-.hero-figure::before {
-  content: '';
-  position: absolute;
-  top: -30px;
-  left: -30px;
-  width: 100px;
-  height: 100px;
-  border: 1px solid rgba(26,26,26,0.12);
-  border-radius: 50%;
-}
-
-.hero-figure::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  right: -40px;
-  width: 60px;
-  height: 60px;
-  background: var(--red);
-}
-
-.hero-image-label {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.hero-bottom {
-  background: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-}
-
-.hero-bottom-label {
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(250,250,248,0.4);
-}
-
-.hero-bottom-price {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 22px;
-  color: var(--white);
-}
-
-/* ── MARQUEE STRIP ── */
-.marquee-strip {
-  border-top: 1px solid var(--light);
-  border-bottom: 1px solid var(--light);
-  height: 48px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.marquee-track {
-  display: flex;
-  animation: ticker 20s linear infinite;
+  color: var(--mid);
+  padding: 16px 24px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
   white-space: nowrap;
-}
-
-.marquee-item {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 18px;
-  color: var(--ink);
-  padding: 0 48px;
-  flex-shrink: 0;
-}
-
-.marquee-sep {
-  color: var(--red);
-  padding: 0;
-}
-
-/* ── GRID SECTION ── */
-.grid-section {
-  padding: 80px 40px;
-}
-
-.grid-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 48px;
-  padding: 0 0;
-}
-
-.grid-title {
-  font-family: var(--serif);
-  font-size: 42px;
-  font-style: italic;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--sans);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  line-height: 1;
+  margin-bottom: -1px;
 }
 
-.grid-meta {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
+.col-tab:hover { color: var(--ink); }
+.col-tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ── PRODUCT GRID ── */
+.grid-wrap {
+  padding: 48px 40px 80px;
 }
 
 .product-grid {
@@ -414,917 +120,319 @@ main { padding-top: 88px; }
   gap: 2px;
 }
 
-.product-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--off);
-  cursor: none;
+@media (max-width: 900px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-.product-card:nth-child(1) { grid-column: span 2; }
-
-.product-img {
-  aspect-ratio: 3/4;
-  background: var(--light);
+.product-card {
+  cursor: pointer;
   position: relative;
+}
+
+.product-img-wrap {
+  aspect-ratio: 3/4;
+  background: #EEECEA;
   overflow: hidden;
+  position: relative;
+}
+
+.product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.product-card:hover .product-img-wrap img {
+  transform: scale(1.03);
+}
+
+/* Placeholder for cards without images */
+.product-img-wrap.no-img {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.product-card:nth-child(1) .product-img { aspect-ratio: 16/10; }
-
-/* Color swatches as placeholder art */
-.swatch-1 { background: #D4CFC6; }
-.swatch-2 { background: #C8C0B4; }
-.swatch-3 { background: #B8B2AA; }
-.swatch-4 { background: #CCCAC4; }
-.swatch-5 { background: #D8D4CC; }
-
-.product-img-label {
+.no-img-label {
   font-family: var(--serif);
   font-style: italic;
   font-size: 13px;
-  color: rgba(26,26,26,0.2);
-}
-
-.product-hover-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--white);
-  padding: 0 20px;
-  height: 0;
-  overflow: hidden;
-  transition: height 0.3s cubic-bezier(0.16,1,0.3,1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.product-card:hover .product-hover-overlay {
-  height: 52px;
-}
-
-.hover-add {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-.hover-price {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 16px;
-  color: var(--muted);
+  color: rgba(26,26,26,0.18);
 }
 
 .product-info {
-  padding: 16px 20px 20px;
+  padding: 14px 0 20px;
+}
+
+.product-num {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--mid);
+  margin-bottom: 4px;
 }
 
 .product-name {
   font-size: 13px;
   font-weight: 400;
   color: var(--ink);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   letter-spacing: 0.01em;
 }
 
-.product-detail {
+.product-color {
   font-size: 12px;
-  color: var(--muted);
-  letter-spacing: 0.02em;
+  color: var(--mid);
+  margin-bottom: 8px;
 }
 
-/* ── EDITORIAL FULL BLEED ── */
-.editorial {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
-}
-
-.editorial-image {
-  background: var(--ink);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 500px;
-}
-
-.editorial-graphic {
-  position: relative;
-  width: 200px;
-  height: 300px;
-}
-
-.ed-rect-1 {
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.ed-rect-2 {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: -20px;
-  bottom: -20px;
-  background: rgba(217,79,61,0.15);
-  border: 1px solid rgba(217,79,61,0.3);
-}
-
-.ed-label {
-  position: absolute;
-  bottom: 32px;
-  left: 32px;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(250,250,248,0.3);
-}
-
-.editorial-text {
-  background: var(--off);
-  padding: 80px 72px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.ed-number {
-  font-family: var(--serif);
-  font-size: 100px;
-  font-style: italic;
-  color: var(--light);
-  line-height: 1;
-  margin-bottom: -12px;
-}
-
-.ed-heading {
-  font-family: var(--serif);
-  font-size: clamp(36px, 3.5vw, 52px);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  line-height: 1.1;
-  margin-bottom: 24px;
-}
-
-.ed-body {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.9;
-  margin-bottom: 40px;
-  max-width: 380px;
-}
-
-/* ── CATEGORIES STRIP ── */
-.categories {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2px;
-  padding: 2px;
-  background: var(--light);
-}
-
-.category-cell {
-  background: var(--white);
-  padding: 36px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-  cursor: none;
-  transition: background 0.2s;
-  text-decoration: none;
-}
-
-.category-cell:hover { background: var(--off); }
-
-.cat-name {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-style: italic;
-  color: var(--ink);
-  line-height: 1.1;
-}
-
-.cat-count {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 8px;
-}
-
-.cat-arrow {
-  font-size: 18px;
-  color: var(--light);
-  transition: color 0.2s, transform 0.2s;
-  align-self: flex-end;
-}
-
-.category-cell:hover .cat-arrow {
-  color: var(--ink);
-  transform: translate(3px, -3px);
-}
-
-/* ── ABOUT STRIP ── */
-.about-strip {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  border-top: 1px solid var(--light);
-  border-bottom: 1px solid var(--light);
-}
-
-.about-left {
-  padding: 64px 64px;
-  border-right: 1px solid var(--light);
-}
-
-.about-tag {
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 24px;
-}
-
-.about-heading {
-  font-family: var(--serif);
-  font-size: 38px;
-  font-weight: 400;
-  font-style: italic;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  line-height: 1.15;
-}
-
-.about-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.about-panel {
-  padding: 64px 56px;
-  border-right: 1px solid var(--light);
-}
-
-.about-panel:last-child { border-right: none; }
-
-.about-panel-num {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 52px;
-  color: var(--light);
-  line-height: 1;
-  margin-bottom: 12px;
-}
-
-.about-panel-title {
+.product-price {
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
   color: var(--ink);
-  margin-bottom: 10px;
+  font-weight: 400;
 }
 
-.about-panel-text {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-/* ── LOOKBOOK ROW ── */
-.lookbook {
-  padding: 80px 40px;
-}
-
-.lookbook-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 48px;
-}
-
-.lookbook-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
-  gap: 2px;
-  height: 560px;
-}
-
-.lb-cell {
-  background: var(--off);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-}
-
-.lb-cell-inner {
-  background: var(--light);
+/* Quick add on hover */
+.quick-add {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lb-2 .lb-cell-inner { background: #C9C5BF; }
-.lb-3 .lb-cell-inner { background: #B5AFA8; }
-.lb-4 .lb-cell-inner { background: #D2CEC8; }
-.lb-1 .lb-cell-inner { background: #C0BAB2; }
-
-.lb-info {
-  position: relative;
-  z-index: 1;
-  padding: 20px 24px;
-  background: linear-gradient(to top, rgba(14,14,12,0.5), transparent);
-  width: 100%;
-}
-
-.lb-name {
-  font-size: 12px;
-  color: rgba(250,250,248,0.9);
-  font-weight: 400;
-  margin-bottom: 2px;
-}
-
-.lb-price {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 16px;
-  color: rgba(250,250,248,0.6);
-}
-
-/* ── NEWSLETTER ── */
-.newsletter {
+  bottom: 0; left: 0; right: 0;
   background: var(--ink);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.nl-left {
-  padding: 88px 80px;
-  border-right: 1px solid rgba(255,255,255,0.08);
-}
-
-.nl-tag {
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 24px;
-}
-
-.nl-title {
-  font-family: var(--serif);
-  font-size: 48px;
-  font-weight: 400;
-  font-style: italic;
   color: var(--white);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-}
-
-.nl-sub {
-  font-size: 13px;
-  color: rgba(250,250,248,0.4);
-  line-height: 1.8;
-  max-width: 320px;
-}
-
-.nl-right {
-  padding: 88px 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.nl-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.nl-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding: 16px 0;
   font-family: var(--sans);
-  font-size: 14px;
-  color: var(--white);
-  outline: none;
-  transition: border-color 0.2s;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 13px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.product-img-wrap:hover .quick-add {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── FILTER ROW ── */
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 32px;
 }
 
-.nl-input::placeholder { color: rgba(250,250,248,0.3); }
-.nl-input:focus { border-color: rgba(255,255,255,0.5); }
+.filter-count {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--mid);
+}
 
-.nl-submit {
-  background: var(--white);
-  color: var(--ink);
+.filter-sort {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--mid);
+  cursor: pointer;
+  background: none;
   border: none;
-  padding: 14px 28px;
   font-family: var(--sans);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  cursor: none;
-  align-self: flex-start;
-  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
 }
 
-.nl-submit:hover {
-  background: var(--off);
-}
-
-.nl-disclaimer {
-  font-size: 11px;
-  color: rgba(250,250,248,0.25);
-  margin-top: 16px;
-  line-height: 1.6;
-}
+.filter-sort:hover { color: var(--ink); }
 
 /* ── FOOTER ── */
 footer {
-  background: var(--black);
-  padding: 64px 40px 40px;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 64px;
+  border-top: 1px solid var(--light);
+  padding: 32px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footer-logo {
   font-family: var(--serif);
-  font-size: 24px;
   font-style: italic;
-  color: var(--white);
-  margin-bottom: 8px;
+  font-size: 15px;
+  color: var(--ink);
 }
 
-.footer-origin {
+.footer-meta {
   font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(250,250,248,0.25);
-  margin-bottom: 24px;
+  letter-spacing: 0.06em;
+  color: var(--mid);
 }
 
-.footer-tagline {
-  font-size: 13px;
-  color: rgba(250,250,248,0.35);
-  line-height: 1.8;
-  max-width: 260px;
+.footer-links {
+  display: flex;
+  gap: 24px;
 }
-
-.footer-col-head {
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(250,250,248,0.3);
-  margin-bottom: 20px;
-}
-
-.footer-links { list-style: none; }
-
-.footer-links li { margin-bottom: 12px; }
 
 .footer-links a {
-  font-size: 13px;
-  color: rgba(250,250,248,0.5);
-  text-decoration: none;
-  transition: color 0.2s;
-  letter-spacing: 0.01em;
-}
-
-.footer-links a:hover { color: var(--white); }
-
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-copy {
   font-size: 11px;
-  letter-spacing: 0.04em;
-  color: rgba(250,250,248,0.2);
-}
-
-.footer-legal {
-  display: flex;
-  gap: 28px;
-}
-
-.footer-legal a {
-  font-size: 11px;
-  color: rgba(250,250,248,0.2);
+  letter-spacing: 0.06em;
+  color: var(--mid);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 
-.footer-legal a:hover { color: rgba(250,250,248,0.5); }
-
-/* Animations */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fade-up 0.8s cubic-bezier(0.16,1,0.3,1) both;
-}
-
-.d1 { animation-delay: 0.05s; }
-.d2 { animation-delay: 0.15s; }
-.d3 { animation-delay: 0.25s; }
-.d4 { animation-delay: 0.35s; }
+.footer-links a:hover { color: var(--ink); }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="ring"></div>
-
 <header>
-  <div class="logo">J.I Studios<span>Est. 2026 Göteborg</span></div>
+  <div class="logo">J.I Studios</div>
   <nav>
     <a href="#">Women</a>
     <a href="#">Men</a>
     <a href="#">Collections</a>
-    <a href="#">World</a>
-    <a href="#">Stories</a>
   </nav>
   <div class="header-right">
     <a href="#">Search</a>
-    <a href="#">Account</a>
     <a href="#">Bag (0)</a>
   </div>
 </header>
 
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item">Free shipping over 1 500 SEK</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">New arrivals — SS26 Collection</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">J.I Studios — Göteborg, 2026</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">Complimentary gift wrapping</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">Free shipping over 1 500 SEK</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">New arrivals — SS26 Collection</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">J.I Studios — Göteborg, 2026</span><span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item">Complimentary gift wrapping</span><span class="ticker-item ticker-dot">·</span>
-  </div>
-</div>
-
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-bg-text">JI</div>
-      <p class="hero-season fade-in d1">Spring / Summer 2026</p>
-      <h1 class="hero-title fade-in d2">SS26<br>Collection 001</em></h1>
-      <div class="hero-cta-row fade-in d3">
-        <a href="#" class="btn-primary">Shop Collection</a>
-        <a href="#" class="btn-ghost">Lookbook</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-image-main">
-       <img src="001.png" alt="SS26 Look 01"
-          style="width:100%;height:100%;object-fit:cover;object-position:center top;">
-       <span class="hero-image-label">SS26 — Look 01</span>
-      </div>
-      <div class="hero-bottom">
-        <span class="hero-bottom-label">Relaxed Linen Blazer</span>
-        <span class="hero-bottom-price">3 600 SEK</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-strip">
-    <div class="marquee-track">
-      <span class="marquee-item">New Arrivals</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">Spring Summer 2026</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">J.I Studios</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">Göteborg</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">New Arrivals</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">Spring Summer 2026</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">J.I Studios</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-      <span class="marquee-item">Göteborg</span>
-      <span class="marquee-item marquee-sep" style="color:var(--red);padding:0 8px">·</span>
-    </div>
+  <!-- Collections tabs -->
+  <div class="collections-bar">
+    <button class="col-tab active" onclick="filter(this,'all')">All</button>
+    <button class="col-tab" onclick="filter(this,'ss26')">SS26</button>
+    <button class="col-tab" onclick="filter(this,'tops')">Tops</button>
+    <button class="col-tab" onclick="filter(this,'bottoms')">Bottoms</button>
+    <button class="col-tab" onclick="filter(this,'outerwear')">Outerwear</button>
+    <button class="col-tab" onclick="filter(this,'accessories')">Accessories</button>
   </div>
 
-  <!-- PRODUCTS -->
-  <section class="grid-section">
-    <div class="grid-header">
-      <h2 class="grid-title">New in</h2>
-      <span class="grid-meta">48 products</span>
+  <div class="grid-wrap">
+    <div class="filter-row">
+      <span class="filter-count" id="count">6 products</span>
+      <button class="filter-sort">Sort ↕</button>
     </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-img">
-         <img src="001.png" alt="Oversized Cotton Shirt"
-            style="width:100%;height:100%;object-fit:cover;display:block;">
-          <div class="product-hover-overlay">
-            <span class="hover-add">Add to bag</span>
-            <span class="hover-price">4 200 SEK</span>
-          </div>
+
+    <div class="product-grid" id="grid">
+
+      <!-- Product 001 — real image -->
+      <div class="product-card" data-cat="tops ss26">
+        <div class="product-img-wrap">
+          <img src="001.png" alt="Oversized Cotton Tee">
+          <button class="quick-add">Add to bag</button>
         </div>
         <div class="product-info">
-          <p class="product-name">Oversized Cotton Shirt</p>
-          <p class="product-detail">Ecru · XS–XL</p>
+          <p class="product-num">001</p>
+          <p class="product-name">Oversized Cotton Tee</p>
+          <p class="product-color">Off White</p>
+          <p class="product-price">1 400 SEK</p>
         </div>
       </div>
-      <div class="product-card">
-        <div class="product-img swatch-2">
-          <span class="product-img-label">SS26 / 002</span>
-          <div class="product-hover-overlay">
-            <span class="hover-add">Add to bag</span>
-            <span class="hover-price">2 900 SEK</span>
-          </div>
+
+      <!-- Placeholders -->
+      <div class="product-card" data-cat="tops ss26">
+        <div class="product-img-wrap no-img">
+          <span class="no-img-label">002</span>
+          <button class="quick-add">Add to bag</button>
         </div>
         <div class="product-info">
+          <p class="product-num">002</p>
+          <p class="product-name">Relaxed Linen Shirt</p>
+          <p class="product-color">Sand</p>
+          <p class="product-price">2 200 SEK</p>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="bottoms ss26">
+        <div class="product-img-wrap no-img" style="background:#E2E0DB;">
+          <span class="no-img-label">003</span>
+          <button class="quick-add">Add to bag</button>
+        </div>
+        <div class="product-info">
+          <p class="product-num">003</p>
           <p class="product-name">Wide Leg Trousers</p>
-          <p class="product-detail">Warm Gray · XS–XL</p>
+          <p class="product-color">Warm Gray</p>
+          <p class="product-price">2 800 SEK</p>
         </div>
       </div>
-      <div class="product-card">
-        <div class="product-img swatch-3">
-          <span class="product-img-label">SS26 / 003</span>
-          <div class="product-hover-overlay">
-            <span class="hover-add">Add to bag</span>
-            <span class="hover-price">1 800 SEK</span>
-          </div>
+
+      <div class="product-card" data-cat="outerwear ss26">
+        <div class="product-img-wrap no-img" style="background:#D9D6D0;">
+          <span class="no-img-label">004</span>
+          <button class="quick-add">Add to bag</button>
         </div>
         <div class="product-info">
-          <p class="product-name">Ribbed Tank Top</p>
-          <p class="product-detail">Off White · XS–XL</p>
-        </div>
-      </div>
-      <div class="product-card">
-       <div class="product-img">
-         <img src="001.png" alt="Oversized Cotton Shirt"
-           style="width:100%;height:100%;object-fit:cover;display:block;">
-           <div class="product-hover-overlay">
-            <span class="hover-add">Add to bag</span>
-            <span class="hover-price">3 600 SEK</span>
-          </div>
-        </div>
-        <div class="product-info">
+          <p class="product-num">004</p>
           <p class="product-name">Relaxed Linen Blazer</p>
-          <p class="product-detail">Sand · XS–XL</p>
+          <p class="product-color">Ecru</p>
+          <p class="product-price">3 600 SEK</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- EDITORIAL -->
-  <section class="editorial">
-    <div class="editorial-image">
-      <div class="editorial-graphic">
-        <div class="ed-rect-1"></div>
-        <div class="ed-rect-2"></div>
-      </div>
-      <span class="ed-label">J.I Studios — World</span>
-    </div>
-    <div class="editorial-text">
-      <div class="ed-number">01</div>
-      <h2 class="ed-heading">The First<br>Collection</h2>
-      <p class="ed-body">Born on the west coast of Sweden, J.I Studios was founded on the belief that clothes should feel like a second skin — purposeful, unassuming, quietly precise. No excess. No apology.</p>
-      <a href="#" class="btn-primary" style="align-self:flex-start;">Read the Story</a>
-    </div>
-  </section>
-
-  <!-- CATEGORIES -->
-  <div class="categories">
-    <a href="#" class="category-cell">
-      <div>
-        <div class="cat-name">Tops &amp;<br>Shirts</div>
-        <div class="cat-count">14 pieces</div>
-      </div>
-      <span class="cat-arrow">↗</span>
-    </a>
-    <a href="#" class="category-cell">
-      <div>
-        <div class="cat-name">Trousers<br>&amp; Skirts</div>
-        <div class="cat-count">11 pieces</div>
-      </div>
-      <span class="cat-arrow">↗</span>
-    </a>
-    <a href="#" class="category-cell">
-      <div>
-        <div class="cat-name">Outerwear</div>
-        <div class="cat-count">8 pieces</div>
-      </div>
-      <span class="cat-arrow">↗</span>
-    </a>
-    <a href="#" class="category-cell">
-      <div>
-        <div class="cat-name">Knitwear</div>
-        <div class="cat-count">9 pieces</div>
-      </div>
-      <span class="cat-arrow">↗</span>
-    </a>
-    <a href="#" class="category-cell">
-      <div>
-        <div class="cat-name">Accessories</div>
-        <div class="cat-count">6 pieces</div>
-      </div>
-      <span class="cat-arrow">↗</span>
-    </a>
-  </div>
-
-  <!-- ABOUT -->
-  <div class="about-strip">
-    <div class="about-left">
-      <p class="about-tag">About the Studio</p>
-      <h2 class="about-heading">Designed in<br>Göteborg.<br>Made to last.</h2>
-    </div>
-    <div class="about-right">
-      <div class="about-panel">
-        <div class="about-panel-num">I</div>
-        <p class="about-panel-title">Considered Design</p>
-        <p class="about-panel-text">Every silhouette begins with a question: does this need to exist? If yes, we make it well.</p>
-      </div>
-      <div class="about-panel">
-        <div class="about-panel-num">II</div>
-        <p class="about-panel-title">Responsible Production</p>
-        <p class="about-panel-text">Produced in limited runs with certified European mills. Quantity controlled. Quality uncompromised.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOOKBOOK -->
-  <section class="lookbook">
-    <div class="lookbook-header">
-      <h2 class="grid-title">SS26 Lookbook</h2>
-      <a href="#" class="btn-ghost">View all looks</a>
-    </div>
-    <div class="lookbook-row">
-      <div class="lb-cell lb-1">
-        <div class="lb-cell-inner">
-        <img src="look1.jpg" style="width:100%;height:100%;object-fit:cover;">
-         </div>
-        <div class="lb-info">
-          <p class="lb-name">Look 01 — Layered Ease</p>
-          <p class="lb-price">from 1 800 SEK</p>
+      <div class="product-card" data-cat="tops ss26">
+        <div class="product-img-wrap no-img" style="background:#E6E3DE;">
+          <span class="no-img-label">005</span>
+          <button class="quick-add">Add to bag</button>
+        </div>
+        <div class="product-info">
+          <p class="product-num">005</p>
+          <p class="product-name">Ribbed Tank</p>
+          <p class="product-color">Stone</p>
+          <p class="product-price">1 100 SEK</p>
         </div>
       </div>
-      <div class="lb-cell lb-2">
-        <div class="lb-cell-inner"><span style="font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(26,26,26,0.2)">Look 02</span></div>
-        <div class="lb-info">
-          <p class="lb-name">Look 02</p>
-          <p class="lb-price">from 2 400 SEK</p>
-        </div>
-      </div>
-      <div class="lb-cell lb-3">
-        <div class="lb-cell-inner"><span style="font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(26,26,26,0.2)">Look 03</span></div>
-        <div class="lb-info">
-          <p class="lb-name">Look 03</p>
-          <p class="lb-price">from 1 600 SEK</p>
-        </div>
-      </div>
-      <div class="lb-cell lb-4">
-        <div class="lb-cell-inner"><span style="font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(26,26,26,0.2)">Look 04</span></div>
-        <div class="lb-info">
-          <p class="lb-name">Look 04 — The Exit</p>
-          <p class="lb-price">from 3 600 SEK</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- NEWSLETTER -->
-  <div class="newsletter">
-    <div class="nl-left">
-      <p class="nl-tag">Newsletter</p>
-      <h2 class="nl-title">Stay<br>in the know</h2>
-      <p class="nl-sub">New arrivals, exclusive drops, and dispatches from the studio — direct to your inbox.</p>
-    </div>
-    <div class="nl-right">
-      <div class="nl-form">
-        <input type="text" class="nl-input" placeholder="First name">
-        <input type="email" class="nl-input" placeholder="Email address">
-        <button class="nl-submit">Subscribe →</button>
-        <p class="nl-disclaimer">By subscribing you agree to our Privacy Policy. Unsubscribe anytime.</p>
+      <div class="product-card" data-cat="accessories ss26">
+        <div class="product-img-wrap no-img" style="background:#DCDAD5;">
+          <span class="no-img-label">006</span>
+          <button class="quick-add">Add to bag</button>
+        </div>
+        <div class="product-info">
+          <p class="product-num">006</p>
+          <p class="product-name">Canvas Tote</p>
+          <p class="product-color">Natural</p>
+          <p class="product-price">900 SEK</p>
+        </div>
       </div>
+
     </div>
   </div>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-top">
-    <div>
-      <div class="footer-logo">J.I Studios</div>
-      <p class="footer-origin">Est. 2026 — Göteborg, Sweden</p>
-      <p class="footer-tagline">Quiet design for people who know what they want and don't need to say it.</p>
-    </div>
-    <div>
-      <p class="footer-col-head">Shop</p>
-      <ul class="footer-links">
-        <li><a href="#">Women</a></li>
-        <li><a href="#">Men</a></li>
-        <li><a href="#">New Arrivals</a></li>
-        <li><a href="#">Sale</a></li>
-        <li><a href="#">Gift Cards</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="footer-col-head">Studio</p>
-      <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Stories</a></li>
-        <li><a href="#">Sustainability</a></li>
-        <li><a href="#">Careers</a></li>
-      </ul>
-    </div>
-    <div>
-      <p class="footer-col-head">Help</p>
-      <ul class="footer-links">
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">Size Guide</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Instagram</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p class="footer-copy">© J.I Studios 2026. All rights reserved.</p>
-    <div class="footer-legal">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Cookies</a>
-      <a href="#">SEK / EN</a>
-    </div>
+  <span class="footer-logo">J.I Studios</span>
+  <span class="footer-meta">Est. 2026 — Göteborg</span>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Shipping</a>
+    <a href="#">Returns</a>
   </div>
 </footer>
 
 <script>
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
+function filter(btn, cat) {
+  document.querySelectorAll('.col-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
 
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
+  const cards = document.querySelectorAll('.product-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const cats = card.dataset.cat || '';
+    const show = cat === 'all' || cats.includes(cat);
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
 
-function animRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
+  document.getElementById('count').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
 }
-animRing();
-
-document.querySelectorAll('a, button, .product-card, .category-cell, .lb-cell').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width = '6px';
-    cursor.style.height = '6px';
-    ring.style.width = '56px';
-    ring.style.height = '56px';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width = '10px';
-    cursor.style.height = '10px';
-    ring.style.width = '36px';
-    ring.style.height = '36px';
-  });
-});
 </script>
 </body>
 </html>
