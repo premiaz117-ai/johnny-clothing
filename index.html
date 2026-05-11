@@ -3,1090 +3,562 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Johnny Clothing — Wear the Moment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>Johnny Clothing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tenor+Sans&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream: #F4EFE6;
-      --ink: #1A1714;
-      --warm-gray: #9A9188;
-      --accent: #C8552A;
-      --gold: #B89A5E;
-      --light: #FDFAF6;
+      --bg: #F7F5F2;
+      --white: #FDFCFA;
+      --ink: #1E1E1C;
+      --mid: #8A8880;
+      --light: #C8C5BF;
+      --rule: #E2DFD9;
+      --stone: #EAE7E1;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--light);
+      background: var(--bg);
       color: var(--ink);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
+      font-family: 'Tenor Sans', sans-serif;
+      font-weight: 400;
       overflow-x: hidden;
-      cursor: none;
     }
 
-    /* Custom Cursor */
-    .cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 38px; height: 38px;
-      border: 1px solid var(--ink);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-      opacity: 0.5;
-    }
-    body:hover .cursor { opacity: 1; }
-
-    /* ---- NAVBAR ---- */
+    /* ---- NAV ---- */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.5rem 3rem;
-      background: rgba(253, 250, 246, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(26,23,20,0.08);
-      animation: fadeDown 0.8s ease both;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 1.6rem 3rem;
+      background: rgba(247,245,242,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
     }
-    @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:none; } }
+
+    .nav-left { display: flex; gap: 2.4rem; }
+    .nav-left a, .nav-right-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-left a:hover, .nav-right-links a:hover { color: var(--ink); }
 
     .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      font-weight: 500;
-      position: relative;
-      padding-bottom: 2px;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after { width: 100%; }
-
-    .nav-actions { display: flex; gap: 1.4rem; align-items: center; }
-    .nav-actions button {
-      background: none; border: none; cursor: none;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.78rem; letter-spacing: 0.12em;
-      text-transform: uppercase; font-weight: 500;
       color: var(--ink);
+      text-decoration: none;
     }
-    .cart-btn {
-      background: var(--ink) !important;
-      color: var(--light) !important;
-      padding: 0.6rem 1.3rem !important;
-      letter-spacing: 0.1em !important;
-      transition: background 0.2s ease, color 0.2s ease;
+
+    .nav-right {
+      display: flex; gap: 2.4rem; justify-content: flex-end; align-items: center;
     }
-    .cart-btn:hover { background: var(--accent) !important; }
+    .nav-right-links { display: flex; gap: 2.4rem; }
+    .nav-cart {
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      background: none; border: none; cursor: pointer;
+      transition: color 0.25s;
+    }
+    .nav-cart:hover { color: var(--ink); }
 
     /* ---- HERO ---- */
     .hero {
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 8rem 3rem 4rem;
-      gap: 2rem;
+      padding-top: 5.5rem;
+    }
+
+    .hero-left {
       position: relative;
       overflow: hidden;
+      background: var(--stone);
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      right: -10%; top: 5%;
-      width: 55vw; height: 90vh;
-      background: var(--cream);
-      border-radius: 2px;
-      z-index: 0;
+    .hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.88;
+      transition: transform 8s ease;
     }
-
-    .hero-text {
-      position: relative; z-index: 2;
-      animation: slideUp 1s ease 0.2s both;
+    .hero-left:hover .hero-img { transform: scale(1.03); }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30,30,28,0.38) 0%, transparent 60%);
     }
-    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:none; } }
-
-    .hero-overline {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+    .hero-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2.5rem;
+      color: var(--white);
+      z-index: 2;
+    }
+    .hero-season {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 1.2rem;
+      opacity: 0.7;
+      margin-bottom: 0.6rem;
+    }
+    .hero-caption h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+    }
+
+    .hero-right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 4rem 4rem 4rem 5rem;
+      background: var(--white);
+    }
+    .hero-right-inner {
+      max-width: 400px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 1s ease 0.3s forwards;
+    }
+    @keyframes rise { to { opacity:1; transform:none; } }
+
+    .overline {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 2rem;
+      display: block;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 6vw, 5.2rem);
-      line-height: 1.06;
-      font-weight: 900;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      line-height: 1.12;
+      letter-spacing: 0.02em;
       margin-bottom: 1.8rem;
+      color: var(--ink);
     }
-    h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
+    h1 em { font-style: italic; }
 
-    .hero-sub {
+    .hero-body {
       font-size: 1rem;
-      color: var(--warm-gray);
-      line-height: 1.8;
-      max-width: 420px;
-      margin-bottom: 2.8rem;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
     }
 
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .cta-row { display: flex; gap: 2rem; align-items: center; }
 
     .btn-primary {
       display: inline-block;
       background: var(--ink);
-      color: var(--light);
-      padding: 1rem 2.2rem;
+      color: var(--white);
+      padding: 0.85rem 2.2rem;
       text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 600;
-      transition: background 0.25s ease, transform 0.2s ease;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--ink);
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-    .btn-secondary:hover { color: var(--accent); border-color: var(--accent); }
-
-    .hero-visual {
-      position: relative; z-index: 2;
-      animation: slideUp 1s ease 0.4s both;
-    }
-
-    .hero-img-wrap {
-      position: relative;
-      background: var(--cream);
-      overflow: hidden;
-      aspect-ratio: 3/4;
-      max-width: 440px;
-      margin-left: auto;
-    }
-    .hero-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .hero-img-wrap:hover img { transform: scale(1.04); }
-
-    .hero-badge {
-      position: absolute;
-      bottom: -1.5rem; left: -2rem;
-      background: var(--accent);
-      color: white;
-      padding: 1.4rem 1.4rem;
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1rem;
-      line-height: 1.3;
-      max-width: 130px;
-      text-align: center;
-    }
-
-    /* ---- TICKER ---- */
-    .ticker {
-      background: var(--ink);
-      color: var(--light);
-      padding: 0.9rem 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-inner {
-      display: inline-flex;
-      animation: ticker 24s linear infinite;
-      gap: 0;
-    }
-    .ticker-item {
-      display: inline-block;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 500;
-      padding: 0 3rem;
-    }
-    .ticker-dot { color: var(--accent); }
-    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* ---- SECTION SHARED ---- */
-    section { padding: 6rem 3rem; }
-    .section-label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.6rem;
+      transition: background 0.3s, letter-spacing 0.3s;
+    }
+    .btn-primary:hover { background: #3A3A38; letter-spacing: 0.26em; }
+
+    .link-subtle {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--light);
+      padding-bottom: 1px;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .link-subtle:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ---- RULE BAR ---- */
+    .rule-bar {
+      display: flex;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .rule-item {
+      flex: 1;
+      padding: 1.1rem 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-align: center;
+      border-right: 1px solid var(--rule);
+    }
+    .rule-item:last-child { border-right: none; }
+
+    /* ---- SECTION ---- */
+    .section { padding: 6rem 3rem; }
+
+    .section-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1.2rem;
     }
     .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .section-sub {
-      color: var(--warm-gray);
-      line-height: 1.75;
-      max-width: 480px;
-      font-size: 0.95rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
     }
 
     /* ---- CATEGORIES ---- */
-    .categories {
-      background: var(--cream);
-    }
-    .cat-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 3rem;
-      flex-wrap: wrap; gap: 1rem;
-    }
+    .categories { background: var(--white); }
+
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
-    .cat-card {
-      position: relative;
-      overflow: hidden;
-      cursor: none;
-    }
-    .cat-card-img {
-      aspect-ratio: 2/3;
-      background: var(--ink);
-      overflow: hidden;
-      position: relative;
-    }
-    .cat-card-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-      opacity: 0.85;
-    }
-    .cat-card:hover .cat-card-img img { transform: scale(1.07); opacity: 1; }
-
-    .cat-card-info {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 2rem 1.5rem 1.5rem;
-      background: linear-gradient(to top, rgba(26,23,20,0.85) 0%, transparent 100%);
-      color: white;
-    }
-    .cat-card-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.2rem;
-    }
-    .cat-card-info p {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.75;
-    }
-    .cat-card-arrow {
-      position: absolute;
-      top: 1.2rem; right: 1.2rem;
-      width: 38px; height: 38px;
-      background: var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      font-size: 1.1rem;
-    }
-    .cat-card:hover .cat-card-arrow { opacity: 1; transform: none; }
-
-    /* ---- FEATURED PRODUCTS ---- */
-    .products-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
-    }
-    .filter-tabs {
-      display: flex; gap: 0.3rem;
-    }
-    .filter-tab {
-      padding: 0.5rem 1.1rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-family: 'Jost', sans-serif;
-      background: none;
-      border: 1px solid transparent;
-      cursor: none;
-      transition: all 0.2s ease;
-      color: var(--warm-gray);
-    }
-    .filter-tab.active, .filter-tab:hover {
-      background: var(--ink);
-      color: var(--light);
-      border-color: var(--ink);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem 1.2rem;
-    }
-
-    .product-card {
-      cursor: none;
-    }
-    .product-img {
-      position: relative;
-      overflow: hidden;
-      background: var(--cream);
-      aspect-ratio: 3/4;
-      margin-bottom: 1rem;
-    }
-    .product-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .product-card:hover .product-img img { transform: scale(1.05); }
-
-    .product-badge {
-      position: absolute;
-      top: 0.8rem; left: 0.8rem;
-      background: var(--accent);
-      color: white;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-    }
-    .product-actions {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      display: flex;
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-    }
-    .product-card:hover .product-actions { transform: none; }
-
-    .add-to-cart {
-      flex: 1;
-      background: var(--ink);
-      color: var(--light);
-      border: none;
-      padding: 0.85rem;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 600;
-      cursor: none;
-      transition: background 0.2s ease;
-    }
-    .add-to-cart:hover { background: var(--accent); }
-    .wishlist-btn {
-      background: white;
-      border: none;
-      padding: 0 1rem;
-      cursor: none;
-      font-size: 1rem;
-      transition: background 0.2s ease;
-    }
-    .wishlist-btn:hover { background: var(--cream); }
-
-    .product-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-    .product-cat {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--warm-gray);
-      margin-bottom: 0.4rem;
-    }
-    .product-price {
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .price-now { font-weight: 600; font-size: 0.95rem; }
-    .price-old {
-      text-decoration: line-through;
-      color: var(--warm-gray);
-      font-size: 0.85rem;
-    }
-
-    /* ---- BANNER ---- */
-    .banner {
-      background: var(--ink);
-      color: var(--light);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 420px;
-      overflow: hidden;
-    }
-    .banner-text {
-      padding: 5rem 4rem;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .banner-text .section-label { color: var(--gold); }
-    .banner-text .section-title { color: var(--light); }
-    .banner-text .section-sub { color: rgba(253,250,246,0.6); max-width: 380px; margin-bottom: 2.5rem; }
-    .banner-visual {
-      background: var(--cream);
-      position: relative;
-      overflow: hidden;
-    }
-    .banner-visual img {
-      width: 100%; height: 100%;
+    .cat-card { position: relative; overflow: hidden; cursor: pointer; }
+    .cat-img {
+      width: 100%; aspect-ratio: 3/4;
       object-fit: cover;
       display: block;
+      filter: saturate(0.85) brightness(0.96);
+      transition: transform 0.7s ease, filter 0.5s ease;
     }
-    .banner-num {
-      position: absolute;
-      font-family: 'Playfair Display', serif;
-      font-size: 9rem;
-      font-weight: 900;
-      color: rgba(26,23,20,0.06);
-      right: -1rem; bottom: -2rem;
-      line-height: 1;
-      user-select: none;
+    .cat-card:hover .cat-img { transform: scale(1.04); filter: saturate(1) brightness(1); }
+    .cat-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 3rem 1.8rem 1.8rem;
+      background: linear-gradient(to top, rgba(30,30,28,0.6) 0%, transparent 100%);
+      color: white;
+    }
+    .cat-label h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.7rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.15rem;
+    }
+    .cat-label span {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* ---- PRODUCTS ---- */
+    .products { background: var(--bg); }
+
+    .filter-row { display: flex; gap: 0.1rem; }
+    .ftab {
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ftab.on, .ftab:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+    .grid4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem 1.4rem;
+      margin-top: 3rem;
+    }
+
+    .pcard { cursor: pointer; }
+    .pcard-img {
+      position: relative; overflow: hidden;
+      background: var(--stone);
+      aspect-ratio: 3/4;
+      margin-bottom: 1.2rem;
+    }
+    .pcard-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.6s ease;
+    }
+    .pcard:hover .pcard-img img { transform: scale(1.05); }
+
+    .pcard-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: var(--white); color: var(--ink);
+      font-family: 'Tenor Sans', sans-serif;
+    }
+    .pcard-badge.sale { background: var(--ink); color: var(--white); }
+
+    .pcard-action {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex;
+      transform: translateY(101%);
+      transition: transform 0.32s ease;
+      border-top: 1px solid var(--rule);
+    }
+    .pcard:hover .pcard-action { transform: none; }
+
+    .action-btn {
+      flex: 1; padding: 0.85rem;
+      background: rgba(247,245,242,0.97); border: none;
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .action-btn:hover { background: var(--ink); color: var(--white); }
+    .action-wish {
+      flex: 0 0 48px;
+      border-left: 1px solid var(--rule);
+      font-size: 0.9rem; color: var(--mid);
+    }
+    .action-wish:hover { background: var(--stone) !important; color: var(--ink) !important; }
+
+    .pcard-sub { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.35rem; }
+    .pcard-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 1.05rem;
+      margin-bottom: 0.4rem; letter-spacing: 0.04em;
+    }
+    .pcard-price { font-size: 0.8rem; letter-spacing: 0.08em; }
+    .old-price { text-decoration: line-through; color: var(--light); margin-left: 0.5rem; }
+
+    /* ---- EDITORIAL ---- */
+    .editorial {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+    }
+    .ed-img { overflow: hidden; }
+    .ed-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      filter: saturate(0.75);
+      transition: transform 0.8s ease, filter 0.5s;
+    }
+    .ed-img:hover img { transform: scale(1.04); filter: saturate(1); }
+    .ed-text {
+      background: var(--stone);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem;
+    }
+    .ed-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2.8rem;
+      line-height: 1.15;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      margin-top: 1.2rem;
+    }
+    .ed-text h2 em { font-style: italic; }
+    .ed-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 1rem; color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 2.5rem; max-width: 380px;
     }
 
     /* ---- TESTIMONIALS ---- */
-    .testimonials { background: var(--cream); }
+    .testimonials { background: var(--white); }
+
     .test-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
       margin-top: 3rem;
     }
-    .test-card {
-      background: white;
-      padding: 2.2rem;
-      position: relative;
-    }
-    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1.2rem; letter-spacing: 0.08em; }
+    .test-card { background: var(--white); padding: 2.8rem 2.4rem; }
+    .test-stars { color: var(--mid); font-size: 0.6rem; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
     .test-quote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-style: italic;
+      font-size: 1.1rem; line-height: 1.7;
+      margin-bottom: 1.8rem; color: var(--ink);
     }
-    .test-author { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
-    .test-loc { font-size: 0.72rem; color: var(--warm-gray); margin-top: 0.2rem; }
+    .test-name { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .test-loc { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-top: 0.25rem; }
 
     /* ---- NEWSLETTER ---- */
     .newsletter {
-      text-align: center;
       padding: 7rem 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .newsletter::before {
-      content: 'JOHNNY';
-      position: absolute;
-      font-family: 'Playfair Display', serif;
-      font-size: 18vw;
-      font-weight: 900;
-      color: rgba(26,23,20,0.04);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      user-select: none;
-      z-index: 0;
-    }
-    .newsletter > * { position: relative; z-index: 1; }
-    .newsletter .section-title { margin-bottom: 0.8rem; }
-    .newsletter .section-sub { margin: 0 auto 2.5rem; text-align: center; }
-
-    .newsletter-form {
-      display: flex;
-      max-width: 480px;
-      margin: 0 auto;
-      gap: 0;
-    }
-    .newsletter-form input {
-      flex: 1;
-      padding: 1rem 1.4rem;
-      border: 1.5px solid var(--ink);
-      border-right: none;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.9rem;
-      background: white;
-      outline: none;
-    }
-    .newsletter-form button {
-      padding: 1rem 1.8rem;
       background: var(--ink);
-      color: var(--light);
-      border: 1.5px solid var(--ink);
-      font-family: 'Jost', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 600;
-      cursor: none;
-      transition: background 0.2s ease;
+      color: var(--white);
+      text-align: center;
     }
-    .newsletter-form button:hover { background: var(--accent); border-color: var(--accent); }
+    .newsletter .overline { color: var(--mid); }
+    .newsletter h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 2.6rem;
+      letter-spacing: 0.08em; margin-bottom: 0.8rem;
+    }
+    .newsletter h2 em { font-style: italic; }
+    .newsletter p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      color: var(--mid); font-size: 1rem; margin-bottom: 3rem;
+    }
+    .nl-form {
+      display: flex; max-width: 440px; margin: 0 auto;
+    }
+    .nl-form input {
+      flex: 1; padding: 0.95rem 1.4rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15); border-right: none;
+      color: var(--white);
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.08em;
+      outline: none; transition: border-color 0.2s;
+    }
+    .nl-form input::placeholder { color: var(--mid); }
+    .nl-form input:focus { border-color: rgba(255,255,255,0.4); }
+    .nl-form button {
+      padding: 0.95rem 1.8rem;
+      background: var(--white); color: var(--ink);
+      border: 1px solid var(--white);
+      font-family: 'Tenor Sans', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s;
+    }
+    .nl-form button:hover { background: var(--bg); }
 
     /* ---- FOOTER ---- */
     footer {
-      background: var(--ink);
-      color: var(--light);
-      padding: 5rem 3rem 2rem;
+      background: var(--stone);
+      padding: 5rem 3rem 2.5rem;
+      border-top: 1px solid var(--rule);
     }
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.8fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 4rem;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem; margin-bottom: 4rem;
     }
-    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 1rem; color: var(--light); }
-    .footer-brand .nav-logo span { color: var(--accent); }
-    .footer-brand p { color: rgba(253,250,246,0.5); font-size: 0.88rem; line-height: 1.8; max-width: 260px; }
-    .footer-socials { display: flex; gap: 0.8rem; margin-top: 1.6rem; }
-    .social-link {
-      width: 36px; height: 36px;
-      border: 1px solid rgba(253,250,246,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem;
-      color: var(--light);
-      text-decoration: none;
-      transition: border-color 0.2s ease, background 0.2s ease;
+    .footer-logo {
+      display: block; margin-bottom: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; letter-spacing: 0.28em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--ink); font-weight: 300;
     }
-    .social-link:hover { border-color: var(--accent); background: var(--accent); }
-
+    .footer-brand p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      color: var(--mid); font-size: 0.95rem; line-height: 1.8;
+      max-width: 240px;
+    }
     .footer-col h4 {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 1.4rem;
-      color: var(--gold);
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink); margin-bottom: 1.4rem;
+      border-bottom: 1px solid var(--rule); padding-bottom: 0.8rem;
     }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.7rem; }
-    .footer-col ul a {
-      color: rgba(253,250,246,0.55);
-      text-decoration: none;
-      font-size: 0.88rem;
-      transition: color 0.2s ease;
+    .footer-col li { margin-bottom: 0.7rem; }
+    .footer-col a {
+      text-decoration: none; color: var(--mid);
+      font-size: 0.82rem; letter-spacing: 0.06em;
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      transition: color 0.2s;
     }
-    .footer-col ul a:hover { color: var(--light); }
+    .footer-col a:hover { color: var(--ink); }
 
     .footer-bottom {
-      border-top: 1px solid rgba(253,250,246,0.08);
-      padding-top: 2rem;
-      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--rule); padding-top: 2rem;
+      display: flex; justify-content: space-between;
       flex-wrap: wrap; gap: 1rem;
     }
-    .footer-bottom p { font-size: 0.78rem; color: rgba(253,250,246,0.35); }
+    .footer-bottom p { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); }
 
     /* ---- TOAST ---- */
     .toast {
-      position: fixed; bottom: 2rem; right: 2rem;
-      background: var(--ink);
-      color: white;
-      padding: 1rem 1.6rem;
-      font-size: 0.82rem;
-      letter-spacing: 0.06em;
+      position: fixed; bottom: 2.5rem; right: 2.5rem;
+      background: var(--ink); color: var(--white);
+      padding: 1rem 1.8rem;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
       z-index: 9999;
-      transform: translateY(120%);
+      transform: translateY(110%);
       transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      display: flex; align-items: center; gap: 0.8rem;
+      border-left: 2px solid var(--light);
     }
     .toast.show { transform: none; }
-    .toast-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
 
-    /* ---- SCROLL REVEAL ---- */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ---- REVEAL ---- */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.on { opacity: 1; transform: none; }
 
     /* ---- RESPONSIVE ---- */
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
-      .hero::before { display: none; }
-      .hero-img-wrap { max-width: 100%; margin: 0; }
+    @media (max-width: 960px) {
+      nav { grid-template-columns: auto 1fr; padding: 1.2rem 1.5rem; }
+      .nav-left { display: none; }
+      .nav-logo { text-align: left; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { min-height: 70vw; }
+      .hero-right { padding: 3rem 1.5rem; }
       .cat-grid { grid-template-columns: 1fr 1fr; }
-      .products-grid { grid-template-columns: 1fr 1fr; }
-      .banner { grid-template-columns: 1fr; }
-      .banner-visual { display: none; }
+      .grid4 { grid-template-columns: 1fr 1fr; }
+      .editorial { grid-template-columns: 1fr; }
+      .ed-text { padding: 3rem 2rem; }
       .test-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      section { padding: 4rem 1.5rem; }
+      .section { padding: 4rem 1.5rem; }
+      .newsletter { padding: 4rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Johnny<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#collections">Collections</a></li>
-      <li><a href="#men">Men</a></li>
-      <li><a href="#women">Women</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button>🔍</button>
-      <button>♡</button>
-      <button class="cart-btn">Bag (0)</button>
+    <div class="nav-left">
+      <a href="#collections">Collections</a>
+      <a href="#men">Men</a>
+      <a href="#women">Women</a>
+    </div>
+    <a href="#" class="nav-logo">Johnny</a>
+    <div class="nav-right">
+      <div class="nav-right-links">
+        <a href="#">Search</a>
+      </div>
+      <button class="nav-cart" id="cartBtn">Bag (0)</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-text">
-      <p class="hero-overline">SS 2026 Collection</p>
-      <h1>Wear the<br><em>Moment.</em><br>Own the Day.</h1>
-      <p class="hero-sub">Crafted for people who live with intention. Johnny Clothing blends modern silhouettes with enduring quality — pieces that move with you.</p>
-      <div class="hero-ctas">
-        <a href="#collections" class="btn-primary">Shop the Collection</a>
-        <a href="#about" class="btn-secondary">Our Story →</a>
+    <div class="hero-left">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1000&q=85" alt="" />
+      <div class="hero-img-overlay"></div>
+      <div class="hero-caption">
+        <p class="hero-season">Spring — Summer 2026</p>
+        <h2>The New<br><em>Collection</em></h2>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-img-wrap">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80" alt="Johnny Clothing Hero" />
-        <div class="hero-badge">New<br>Arrivals<br>2026</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span class="ticker-item">Free Shipping Over 500 kr <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">SS 2026 Now Live <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Sustainable Materials <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">New Arrivals Weekly <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Free Returns 30 Days <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Free Shipping Over 500 kr <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">SS 2026 Now Live <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Sustainable Materials <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">New Arrivals Weekly <span class="ticker-dot">✦</span></span>
-      <span class="ticker-item">Free Returns 30 Days <span class="ticker-dot">✦</span></span>
-    </div>
-  </div>
-
-  <!-- CATEGORIES -->
-  <section class="categories" id="collections">
-    <div class="cat-header reveal">
-      <div>
-        <p class="section-label">Shop by Category</p>
-        <h2 class="section-title">Find Your Style</h2>
-      </div>
-      <a href="#" class="btn-secondary">View All →</a>
-    </div>
-    <div class="cat-grid">
-      <div class="cat-card reveal">
-        <div class="cat-card-img">
-          <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=600&q=80" alt="Menswear" />
-          <div class="cat-card-arrow">→</div>
-        </div>
-        <div class="cat-card-info">
-          <h3>Menswear</h3>
-          <p>142 Pieces</p>
-        </div>
-      </div>
-      <div class="cat-card reveal">
-        <div class="cat-card-img">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="Womenswear" />
-          <div class="cat-card-arrow">→</div>
-        </div>
-        <div class="cat-card-info">
-          <h3>Womenswear</h3>
-          <p>198 Pieces</p>
-        </div>
-      </div>
-      <div class="cat-card reveal">
-        <div class="cat-card-img">
-          <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=600&q=80" alt="Accessories" />
-          <div class="cat-card-arrow">→</div>
-        </div>
-        <div class="cat-card-info">
-          <h3>Accessories</h3>
-          <p>86 Pieces</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURED PRODUCTS -->
-  <section id="men">
-    <div class="products-header reveal">
-      <div>
-        <p class="section-label">Curated Selection</p>
-        <h2 class="section-title">Best Sellers</h2>
-      </div>
-      <div class="filter-tabs">
-        <button class="filter-tab active" onclick="setTab(this)">All</button>
-        <button class="filter-tab" onclick="setTab(this)">Men</button>
-        <button class="filter-tab" onclick="setTab(this)">Women</button>
-        <button class="filter-tab" onclick="setTab(this)">New</button>
-      </div>
-    </div>
-    <div class="products-grid">
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" alt="Slim Fit Jacket" />
-          <span class="product-badge">New</span>
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Slim Fit Jacket')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Menswear</p>
-        <h3 class="product-name">Slim Fit Jacket</h3>
-        <div class="product-price"><span class="price-now">1 299 kr</span></div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&q=80" alt="Linen Dress" />
-          <span class="product-badge">Sale</span>
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Linen Summer Dress')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Womenswear</p>
-        <h3 class="product-name">Linen Summer Dress</h3>
-        <div class="product-price">
-          <span class="price-now">799 kr</span>
-          <span class="price-old">1 099 kr</span>
-        </div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&q=80" alt="Wool Overcoat" />
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Wool Overcoat')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Menswear</p>
-        <h3 class="product-name">Wool Overcoat</h3>
-        <div class="product-price"><span class="price-now">2 599 kr</span></div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&q=80" alt="Striped Blouse" />
-          <span class="product-badge">New</span>
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Striped Blouse')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Womenswear</p>
-        <h3 class="product-name">Striped Blouse</h3>
-        <div class="product-price"><span class="price-now">649 kr</span></div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80" alt="Leather Tote" />
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Leather Tote')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Accessories</p>
-        <h3 class="product-name">Leather Tote</h3>
-        <div class="product-price"><span class="price-now">1 799 kr</span></div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Classic Chinos" />
-          <span class="product-badge">Sale</span>
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Classic Chinos')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Menswear</p>
-        <h3 class="product-name">Classic Chinos</h3>
-        <div class="product-price">
-          <span class="price-now">599 kr</span>
-          <span class="price-old">849 kr</span>
-        </div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=500&q=80" alt="Knit Sweater" />
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Ribbed Knit Sweater')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Womenswear</p>
-        <h3 class="product-name">Ribbed Knit Sweater</h3>
-        <div class="product-price"><span class="price-now">899 kr</span></div>
-      </div>
-
-      <div class="product-card reveal">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&q=80" alt="Denim Jeans" />
-          <span class="product-badge">New</span>
-          <div class="product-actions">
-            <button class="add-to-cart" onclick="addToCart('Straight Denim Jeans')">Add to Bag</button>
-            <button class="wishlist-btn">♡</button>
-          </div>
-        </div>
-        <p class="product-cat">Menswear</p>
-        <h3 class="product-name">Straight Denim Jeans</h3>
-        <div class="product-price"><span class="price-now">999 kr</span></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- PROMO BANNER -->
-  <div class="banner" id="about">
-    <div class="banner-text reveal">
-      <p class="section-label">The Johnny Promise</p>
-      <h2 class="section-title">Made to Last,<br>Styled to Lead.</h2>
-      <p class="section-sub">Every piece in our collection is crafted from responsibly sourced fabrics. We believe fashion and ethics can share the same label.</p>
-      <a href="#" class="btn-primary" style="align-self:flex-start;">Explore Our Values</a>
-      <div class="banner-num">2026</div>
-    </div>
-    <div class="banner-visual">
-      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80" alt="Craftsmanship" />
-    </div>
-  </div>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="reveal" style="text-align:center; margin-bottom: 0;">
-      <p class="section-label" style="display:block; text-align:center;">What People Say</p>
-      <h2 class="section-title" style="text-align:center;">Loved by Thousands</h2>
-    </div>
-    <div class="test-grid">
-      <div class="test-card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"Finally a brand that gets it. The quality is exceptional and the fit is perfect. I've ordered four times already."</p>
-        <p class="test-author">Maja L.</p>
-        <p class="test-loc">Stockholm, Sweden</p>
-      </div>
-      <div class="test-card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"The linen dress is my summer staple. Breathable, elegant, and I get compliments every time I wear it."</p>
-        <p class="test-author">Frida K.</p>
-        <p class="test-loc">Gothenburg, Sweden</p>
-      </div>
-      <div class="test-card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="test-quote">"Shipping was fast and the packaging was beautiful. The wool coat is everything I hoped for — and more."</p>
-        <p class="test-author">Erik T.</p>
-        <p class="test-loc">Malmö, Sweden</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER -->
-  <section class="newsletter" id="contact">
-    <p class="section-label">Stay Connected</p>
-    <h2 class="section-title">Join the Inner Circle</h2>
-    <p class="section-sub">Early access to new drops, exclusive offers, and style notes straight to your inbox.</p>
-    <div class="newsletter-form">
-      <input type="email" placeholder="Your email address" />
-      <button onclick="subscribeNewsletter()">Subscribe</button>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#" class="nav-logo">Johnny<span>.</span></a>
-        <p>Wear the moment. Dress with purpose. Johnny Clothing — designed in Scandinavia, worn everywhere.</p>
-        <div class="footer-socials">
-          <a href="#" class="social-link">ig</a>
-          <a href="#" class="social-link">tt</a>
-          <a href="#" class="social-link">fb</a>
-          <a href="#" class="social-link">pi</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <ul>
-          <li><a href="#">New Arrivals</a></li>
-          <li><a href="#">Menswear</a></li>
-          <li><a href="#">Womenswear</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Sale</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">Shipping Info</a></li>
-          <li><a href="#">Returns</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About Johnny</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Johnny Clothing. All rights reserved.</p>
-      <p>Designed in Sweden. Made for the world.</p>
-    </div>
-  </footer>
-
-  <!-- TOAST -->
-  <div class="toast" id="toast">
-    <div class="toast-dot"></div>
-    <span id="toast-msg">Added to bag</span>
-  </div>
-
-  <script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
-      }, 60);
-    });
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.width = '54px';
-        ring.style.height = '54px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '38px';
-        ring.style.height = '38px';
-      });
-    });
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(r => observer.observe(r));
-
-    // Filter tabs
-    function setTab(el) {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-    }
-
-    // Toast
-    let toastTimer;
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-msg').textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    // Add to cart
-    let cartCount = 0;
-    function addToCart(name) {
-      cartCount++;
-      document.querySelector('.cart-btn').textContent = `Bag (${cartCount})`;
-      showToast(`"${name}" added to bag ✓`);
-    }
-
-    // Newsletter
-    function subscribeNewsletter() {
-      const input = document.querySelector('.newsletter-form input');
-      if (input.value.includes('@')) {
-        showToast('You\'re on the list — welcome!');
-        input.value = '';
-      } else {
-        showToast('Please enter a valid email.');
-      }
-    }
-  </script>
-</body>
-</html>
+    <div class="hero-right">
+      <div class="hero-right-inner">
+        <span class="overline">Johnny Clothing — Est. 2014
