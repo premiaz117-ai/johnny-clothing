@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>J.I Studios</title>
+<title>Cotton Tee - White | J.I Studios</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,11 +168,21 @@ main {
   .footer-links {
     gap: 16px;
   }
+
+  .product-detail {
+    flex-direction: column;
+    padding: 24px 20px;
+    gap: 24px;
+  }
+
+  .product-image img {
+    max-width: 100%;
+  }
 }
 
 .product-card {
-  text-decoration: none;
-  color: inherit;
+  cursor: pointer;
+  position: relative;
 }
 
 .product-img-wrap {
@@ -330,6 +340,48 @@ footer {
 }
 
 .footer-links a:hover { color: var(--ink); }
+
+.product-detail {
+  display: flex;
+  padding: 48px 40px;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.product-image {
+  flex: 1;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h1 {
+  font-family: var(--serif);
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.add-to-bag {
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
 </style>
 </head>
 <body>
@@ -339,7 +391,7 @@ footer {
   <nav>
     <a href="#">Women</a>
     <a href="#">Men</a>
-    <a href="#">Collections</a>
+    <a href="index.html">Collections</a>
   </nav>
   <div class="header-right">
     <a href="#">Search</a>
@@ -349,63 +401,28 @@ footer {
 
 <main>
 
-  <!-- Collections tabs -->
-  <div class="collections-bar">
-    <button class="col-tab active" onclick="filter(this,'all')">All</button>
-    <button class="col-tab" onclick="filter(this,'ss26')">SS26</button>
-  </div>
+  <div class="product-detail">
 
-  <div class="grid-wrap">
-    <div class="filter-row">
-      <span class="filter-count" id="count">6 products</span>
-      <button class="filter-sort">Sort ↕</button>
-    </div>
+    <div class="product-image">
 
-    <div class="product-grid" id="grid">
-
-      <!-- Product 001 — real image -->
-      <a class="product-card" href="product-001.html" data-cat="ss26">
-        <div class="product-img-wrap">
-          <img src="001.jpg" alt="Cotton Tee">
-          <button class="quick-add">Add to bag</button>
-        </div>
-        <div class="product-info">
-          <p class="product-num">001</p>
-          <p class="product-name">Cotton Tee</p>
-          <p class="product-color">White</p>
-          <p class="product-price">849 SEK</p>
-        </div>
-      </a>
-
-      <!--Product 002 - real image-->
-      <a class="product-card" href="product-002.html" data-cat="ss26">
-        <div class="product-img-wrap">
-          <img src="002.png" alt="Cotton Tee">
-          <button class="quick-add">Add to bag</button>
-        </div>
-        <div class="product-info">
-          <p class="product-num">002</p>
-          <p class="product-name">Cotton Tee</p>
-          <p class="product-color">Black</p>
-          <p class="product-price">849 SEK</p>
-        </div>
-      </a>
-
-      <!--Product 003 - real image-->
-      <a class="product-card" href="product-003.html" data-cat="ss26">
-        <div class="product-img-wrap">
-          <img src="003.png" alt="Cotton Tee">
-          <button class="quick-add">Add to bag</button>
-        </div>
-        <div class="product-info">
-          <p class="product-num">003</p>
-          <p class="product-name">Cotton Tee</p>
-          <p class="product-color">Navy</p>
-          <p class="product-price">849 SEK</p>
-        </div>
-      </a>
+      <img src="001.jpg" alt="Cotton Tee">
 
     </div>
+
+    <div class="product-details">
+
+      <p class="product-num">001</p>
+
+      <h1 class="product-name">Cotton Tee</h1>
+
+      <p class="product-color">White</p>
+
+      <p class="product-price">849 SEK</p>
+
+      <button class="add-to-bag">Add to bag</button>
+
+    </div>
+
   </div>
 
 </main>
@@ -420,22 +437,6 @@ footer {
   </div>
 </footer>
 
-<script>
-function filter(btn, cat) {
-  document.querySelectorAll('.col-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
 
-  const cards = document.querySelectorAll('.product-card');
-  let visible = 0;
-  cards.forEach(card => {
-    const cats = card.dataset.cat || '';
-    const show = cat === 'all' || cats.includes(cat);
-    card.style.display = show ? '' : 'none';
-    if (show) visible++;
-  });
-
-  document.getElementById('count').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
-}
-</script>
 </body>
 </html>
