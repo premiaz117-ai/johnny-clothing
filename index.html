@@ -331,6 +331,7 @@ footer {
 
 .footer-links a:hover { color: var(--ink); }
 </style>
+<link rel="stylesheet" href="cart.css">
 </head>
 <body>
 
@@ -343,9 +344,28 @@ footer {
   </nav>
   <div class="header-right">
     <a href="#">Search</a>
-    <a href="#">Bag (0)</a>
+    <a href="#" class="bag-toggle">Bag (<span class="bag-count">0</span>)</a>
   </div>
 </header>
+<div class="cart-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h2 id="cart-title">Your bag</h2>
+      <button type="button" class="cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-items"></div>
+      <div class="cart-empty">Your bag is empty.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <span>Total</span>
+        <strong class="cart-total">0 SEK</strong>
+      </div>
+      <button type="button" class="checkout-btn">Checkout</button>
+    </div>
+  </div>
+</div>
 
 <main>
 
@@ -364,7 +384,7 @@ footer {
     <div class="product-grid" id="grid">
 
       <!-- Product 001 — real image -->
-      <a class="product-card" href="product-001.html" data-cat="ss26">
+      <a class="product-card" href="product-001.html" data-cat="ss26" data-id="item-001" data-title="Cotton Tee" data-name="001" data-color="White" data-price="849">
         <div class="product-img-wrap">
           <img src="001.png" alt="Cotton Tee">
           <button class="quick-add">Add to bag</button>
@@ -378,7 +398,7 @@ footer {
       </a>
 
       <!--Product 002 - real image-->
-      <a class="product-card" href="product-002.html" data-cat="ss26">
+      <a class="product-card" href="product-002.html" data-cat="ss26" data-id="item-002" data-title="Cotton Tee" data-name="002" data-color="Black" data-price="849">
         <div class="product-img-wrap">
           <img src="002.png" alt="Cotton Tee">
           <button class="quick-add">Add to bag</button>
@@ -392,7 +412,7 @@ footer {
       </a>
 
       <!--Product 003 - real image-->
-      <a class="product-card" href="product-003.html" data-cat="ss26">
+      <a class="product-card" href="product-003.html" data-cat="ss26" data-id="item-003" data-title="Cotton Tee" data-name="003" data-color="Navy" data-price="849">
         <div class="product-img-wrap">
           <img src="003.png" alt="Cotton Tee">
           <button class="quick-add">Add to bag</button>
@@ -437,5 +457,6 @@ function filter(btn, cat) {
   document.getElementById('count').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
 }
 </script>
+<script src="cart.js"></script>
 </body>
 </html>

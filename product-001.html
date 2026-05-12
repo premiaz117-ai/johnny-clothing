@@ -466,6 +466,7 @@ footer {
 .back-link:hover { color: var(--ink); }
 
 </style>
+<link rel="stylesheet" href="cart.css">
 </head>
 <body>
 
@@ -478,9 +479,28 @@ footer {
   </nav>
   <div class="header-right">
     <a href="#">Search</a>
-    <a href="#">Bag (0)</a>
+    <a href="#" class="bag-toggle">Bag (<span class="bag-count">0</span>)</a>
   </div>
 </header>
+<div class="cart-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h2 id="cart-title">Your bag</h2>
+      <button type="button" class="cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-items"></div>
+      <div class="cart-empty">Your bag is empty.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <span>Total</span>
+        <strong class="cart-total">0 SEK</strong>
+      </div>
+      <button type="button" class="checkout-btn">Checkout</button>
+    </div>
+  </div>
+</div>
 
 <main>
 
@@ -512,7 +532,7 @@ footer {
         <div><span>Details</span><span>Ribbed collar</span></div>
       </div>
 
-      <button class="add-to-bag">Add to bag</button>
+      <button class="add-to-bag" data-id="item-001" data-title="Cotton Tee" data-name="001" data-color="White" data-price="849">Add to bag</button>
 
     </div>
 
@@ -531,5 +551,6 @@ footer {
 </footer>
 
 
+<script src="cart.js"></script>
 </body>
 </html>
